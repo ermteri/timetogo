@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             mFirstSpinnerCursorAdapter.getCursor().close();
         }
         if(mSecondSpinnerCursorAdapter != null) {
-            mFirstSpinnerCursorAdapter.getCursor().close();
+            mSecondSpinnerCursorAdapter.getCursor().close();
         }
         mTravelDataDb.close();
         mPrevAddrDb.close();
@@ -443,18 +443,17 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         String second = cursor.getString(cursor.getColumnIndex(PreviousAddressesDatabaseHelper.ADDRESS));
         second = second.replaceAll(System.getProperty("line.separator"),",");
         cursor.close();
-        String dirflag = directionMode;
-        Uri request = null;
+        Uri request;
         if(mIsTo) {
             request = Uri.parse("http://maps.google.com/maps?" +
                     "&saddr=" + Uri.encode(first) +
                     "&daddr=" + Uri.encode(second) +
-                    "&dirflg=" + dirflag);
+                    "&dirflg=" + directionMode);
         } else {
             request = Uri.parse("http://maps.google.com/maps?" +
                     "&saddr=" + Uri.encode(second) +
                     "&daddr=" + Uri.encode(first) +
-                    "&dirflg=" + dirflag);
+                    "&dirflg=" + directionMode);
         }
         Log.d(TAG,"Directions request:"+request);
 
@@ -542,9 +541,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
             }
         } catch (GooglePlayServicesRepairableException e) {
-            // TODO: Handle the error.
+            Log.d(TAG, "GooglePlayServicesRepairableException");
         } catch (GooglePlayServicesNotAvailableException e) {
-            // TODO: Handle the error.
+            Log.d(TAG, "GooglePlayServicesNotAvailableException");
         }
     }
 
@@ -562,7 +561,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 Log.d(TAG, status.getStatusMessage());
 
             } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
+                Log.d(TAG, "ResultCode == RESULT_CANCELED");
             }
         }
     }
@@ -647,8 +646,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         else
             mGraphTitle = getString(R.string.graph_title);
         dbCursor.close();
-        Log.d(TAG, "Got message: " + travelData);
-        if(travelData != null) {
+        if(travelData.length > 0) {
             displayValues(travelData);
         }
         TextView travelTime = (TextView) findViewById(R.id.travelTime);
@@ -664,7 +662,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     private void displayValues(Point[] travelData) {
         Log.d(TAG,"displayValues");
-        Log.d(TAG,"travelData" + travelData);
         if(travelData.length > 0) {
             mLineGraph.setMaxY(Utilities.getMaxY(travelData) * 1.2);
         } else {
@@ -797,6 +794,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         showSpinner(false);
     }
 
+
     private void showLastValue(boolean showVal) {
         Log.d(TAG,"showLastValue");
         ProgressBar pb = (ProgressBar) findViewById(R.id.sp_waitfor_result);
@@ -817,7 +815,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         Log.d(TAG,"isAddressSet");
         Log.d(TAG, "DBKEYID1:" +  mSettings.getLong(FIRST_DB_KEY_ID,-1));
         Log.d(TAG, "DBKEYID2:" +  mSettings.getLong(SECOND_DB_KEY_ID,-1));
-        if(mSettings.getLong(FIRST_DB_KEY_ID,-1) == -1 ||
+        if(mSettings.getLong(FIRST_DB_KEY_ID, -1) == -1 ||
                 mSettings.getLong(SECOND_DB_KEY_ID, -1) == -1)
             return false;
         else
@@ -881,7 +879,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         showSpinner(true);
     }
 
-    public class FirstSpinnerInteractionListener implements AdapterView.OnItemSelectedListener, View.OnTouchListener {
+    private class FirstSpinnerInteractionListener implements AdapterView.OnItemSelectedListener, View.OnTouchListener {
 
         boolean userSelect = false;
 
@@ -952,7 +950,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         showSpinner(false);
     }
 
-    public class SecondSpinnerInteractionListener implements AdapterView.OnItemSelectedListener, View.OnTouchListener {
+    private class SecondSpinnerInteractionListener implements AdapterView.OnItemSelectedListener, View.OnTouchListener {
 
         boolean userSelect = false;
 
@@ -987,7 +985,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         TextView hint;
         ImageView delete;
         Spinner spinner;
-        boolean selected = false;
+        boolean selected;
         if(isFirst) {
             hint = (TextView) findViewById(R.id.first_previous_hint);
             delete =(ImageView) findViewById(R.id.first_previous_delete);

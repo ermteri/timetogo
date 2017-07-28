@@ -57,7 +57,7 @@ public class TravelTimeDatabaseHelper extends SQLiteOpenHelper {
                     + TRAVELTIME + " INTEGER,"
                     + TRAVELTIMENOTRAFFIC + " INTEGER,"
                     + AVOID + " STRING,"
-                    + DISTANCE + "INTEGER DEFAULT 0;");
+                    + DISTANCE + " INTEGER DEFAULT 0);");
         } else if(oldVersion < 2) {
             db.execSQL("ALTER TABLE " + TIMETOGO + " ADD COLUMN " + DISTANCE + " INTEGER DEFAULT 0");
         }

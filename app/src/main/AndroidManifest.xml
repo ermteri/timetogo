@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="se.torsteneriksson.timetogo">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /-->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_timetogo_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/MyMaterialTheme">
+        <receiver android:name="se.torsteneriksson.timetogo.AlarmReceiver"></receiver>
+        <activity android:name="se.torsteneriksson.timetogo.MainActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyChtrMuTk_QyTrvcmesEQxb7D_xPUz9wvM" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity android:name="se.torsteneriksson.timetogo.SettingsActivity"
+            android:parentActivityName="se.torsteneriksson.timetogo.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="se.torsteneriksson.timetogo.MainActivity"/>
+            ></activity>
+    </application>
+
+</manifest>

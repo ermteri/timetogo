@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TimeToGo</string>
+    <string name="first_address">Klicka på kartsymbolen för att ange första adressen!</string>
+    <string name="second_address">Klicka på kartsymbolen för att ange andra adressen!</string>
+    <string name="start">START</string>
+    <string name="stop">STOPP</string>
+    <string name="clear_history">RENSA</string>
+    <string name="unknown">---</string>
+    <string name="action_settings">Inställningar</string>
+    <string name="pref_toll_usage_label">Vägtullar</string>
+    <string name="pref_avoid_toll_false">Använd vägar med tullar</string>
+    <string name="pref_avoid_toll_true">Undvik vägar med tullar</string>
+    <string name="title_activity_settings">Inställningar</string>
+    <string name="changes_takes_effect">Ändringarna används först\nefter nästa start!</string>
+    <string name="address_empty">Adressfälten är tomma!</string>
+    <string name="graph_title">Historik (min)</string>
+    <string name="started">Startad!</string>
+    <string name="now">Nu</string>
+    <string name="app_finished"> är klar</string>
+    <string name="select_address">Välj en tidigare adress!</string>
+    <string name="minutes">%1$d min</string>
+    <string name="hours_minutes">%1$d tim %2$d min"</string>
+    <string name="lookup_failed">Misslyckades med att hämta körtiden!</string>
+    <string name="is_running">körs.</string>
+    <string name="clear_history_prompt">Rensa</string>
+    <string name="clear_history_prompt_message">Rensa alla adresser
+        och historik?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Avbryt</string>
+    <string name="clear_history_cancelled">Inget togs bort!</string>
+    <string name="clear_history_ok">Adresser och historik borttagen</string>
+    <string name="distance_in_km">(%1$d km)</string>
+
+</resources>
